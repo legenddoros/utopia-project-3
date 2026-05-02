@@ -1,0 +1,26 @@
+{
+  "name": "utopia-project-3",
+  "version": "1.0.0",
+  "description": "Project 3 interactive media site",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/legenddoros/utopia-project-3.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/legenddoros/utopia-project-3/issues"
+  },
+  "homepage": "https://github.com/legenddoros/utopia-project-3#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "nodemon": "^3.1.14",
+    "nunjucks": "^3.2.4"
+  }
+}
