@@ -24,14 +24,21 @@ app.get("/", (req, res) => {
 
 // HEAVEN PAGE
 app.get("/heaven", (req, res) => {
-  res.render("network-a", {
+  res.render("heaven", {
     title: "Heaven",
+    assets: [
+      "/assets/fruit.png",
+      "/assets/rainbow.png",
+      "/assets/utopia.png",
+      "/assets/waterfall.png",
+      "/assets/zombie.png",
+    ],
   });
 });
 
 // HELL PAGE
 app.get("/hell", (req, res) => {
-  res.render("network-b", {
+  res.render("hell", {
     title: "Hell",
   });
 });

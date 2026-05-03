@@ -1,0 +1,85 @@
+body {
+  margin: 0;
+  background: #111;
+  font-family: monospace;
+  overflow: hidden;
+}
+
+/* TOP BAR */
+.top-info {
+  width: 100%;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  background: #161616;
+  border-bottom: 2px solid #333;
+  color: white;
+}
+
+.top-info h1 {
+  margin: 0;
+}
+
+.nav-links a {
+  color: white;
+  margin-right: 15px;
+  text-decoration: none;
+}
+
+/* MAIN LAYOUT */
+.workspace {
+  display: flex;
+  width: 100vw;
+  height: calc(100vh - 100px);
+}
+
+/* LEFT TOOLBAR */
+.toolbar {
+  width: 180px;
+  background: #1d1d1d;
+  border-right: 2px solid #444;
+  padding: 10px;
+  box-sizing: border-box;
+  color: white;
+}
+
+.toolbar h3 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* SCROLL ASSETS */
+.asset-scroll {
+  height: calc(100vh - 140px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.thumb {
+  width: 100%;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.thumb:hover {
+  border: 2px solid white;
+}
+
+/* CANVAS AREA */
+.canvas-zone {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #222;
+}
+
+canvas {
+  border: 2px solid #666;
+  background: white;
+}
+
+.upper-canvas {
+  background: transparent !important;
+}

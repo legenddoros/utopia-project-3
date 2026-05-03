@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <!-- TOP INFO BAR -->
+    <div class="top-info">
+        <h1>Heaven</h1>
+
+        <p>
+            A high-frequency signal space where messages are clean, fragmented,
+            and constantly reinterpreted.
+        </p>
+
+        <div class="nav-links">
+            <a href="/">Back to Main</a>
+            <a href="/hell">Go to Hell</a>
+        </div>
+    </div>
+
+    <!-- WORKSPACE -->
+    <div class="workspace">
+
+        <!-- LEFT TOOLBAR -->
+        <div class="toolbar">
+            <h3>Signal Assets</h3>
+
+            <div class="asset-scroll">
+                {% for img in assets %}
+                    <img src="{{ img }}" class="thumb" data-src="{{ img }}">
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- CANVAS -->
+        <div class="canvas-zone">
+            <canvas id="mainCanvas" width="1400" height="850"></canvas>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/fabric@4.6.0/dist/fabric.min.js"></script>
+    <script src="/js/heaven.js"></script>
+
+</body>
+</html>
