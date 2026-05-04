@@ -1,5 +1,7 @@
 const express = require("express");
 const nunjucks = require("nunjucks");
+const fs = require("fs");
+const path = require('path');
 
 const app = express();
 const PORT = 3000;
@@ -24,23 +26,18 @@ app.get("/", (req, res) => {
 
 // HEAVEN PAGE
 app.get("/heaven", (req, res) => {
-  res.render("heaven", {
-    title: "Heaven",
-    assets: [
-      "/assets/fruit.png",
-      "/assets/rainbow.png",
-      "/assets/utopia.png",
-      "/assets/waterfall.png",
-      "/assets/zombie.png",
-    ],
-  });
+
+const files = fs.readdirSync("public/assets/heaven");
+const assets = files.map(file => "/assets/heaven/" + file);
+ res.render('heaven', {assets});
+
 });
 
 // HELL PAGE
 app.get("/hell", (req, res) => {
-  res.render("hell", {
-    title: "Hell",
-  });
+  const files = fs.readdirSync('public/assets/hell');
+  const assets = files.map(file =>'assets/hell' + file);
+  res.render('hell', {assets});
 });
 
 // start server

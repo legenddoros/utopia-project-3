@@ -34,7 +34,7 @@ body {
 
 /* LEFT TOOLBAR */
 .toolbar {
-  width: 180px;
+  width: 15%;
   background: #1d1d1d;
   border-right: 2px solid #444;
   padding: 10px;
@@ -73,13 +73,25 @@ body {
   justify-content: center;
   align-items: center;
   background: #222;
+
+  
+
 }
 
 canvas {
   border: 2px solid #666;
   background: white;
+
+  
 }
 
 .upper-canvas {
-  background: transparent !important;
+  background: rgb(255, 255, 255);
+ 
+ 
 }
+#mainCanvas{
+  width:100% !important;
+}
+
+
