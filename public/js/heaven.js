@@ -2,6 +2,9 @@ const canvas = new fabric.Canvas("mainCanvas", {
   preserveObjectStacking: true,
 });
 
+canvas.setWidth(900);
+canvas.setHeight(600);
+
 // -----------------------------
 // ADD IMAGE FUNCTION
 // -----------------------------
