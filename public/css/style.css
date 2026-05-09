@@ -1,97 +1,424 @@
-body {
+.home-page {
   margin: 0;
-  background: #111;
-  font-family: monospace;
-  overflow: hidden;
-}
-
-/* TOP BAR */
-.top-info {
-  width: 100%;
-  padding: 10px 20px;
-  box-sizing: border-box;
-  background: #161616;
-  border-bottom: 2px solid #333;
-  color: white;
-}
-
-.top-info h1 {
-  margin: 0;
-}
-
-.nav-links a {
-  color: white;
-  margin-right: 15px;
-  text-decoration: none;
-}
-
-/* MAIN LAYOUT */
-.workspace {
-  display: flex;
   width: 100vw;
-  height: calc(100vh - 100px);
+  height: 100vh;
+  overflow: hidden;
+  background: url("/assets/utopia.png") center center / cover no-repeat;
+  font-family: "Press Start 2P", monospace;
 }
 
-/* LEFT TOOLBAR */
-.toolbar {
-  width: 15%;
-  background: #1d1d1d;
-  border-right: 2px solid #444;
-  padding: 10px;
-  box-sizing: border-box;
-  color: white;
+.home-overlay {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.toolbar h3 {
+.home-card {
+  max-width: 760px;
+  padding: 32px 28px;
+  margin: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 3px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.25);
+  color: #f6f7ff;
   text-align: center;
-  margin-bottom: 10px;
 }
 
-/* SCROLL ASSETS */
-.asset-scroll {
-  height: calc(100vh - 140px);
-  overflow-y: auto;
+.home-card h1 {
+  margin: 0 0 22px;
+  font-size: 28px;
+  line-height: 1.4;
+  text-shadow: 0 3px 0 rgba(0, 0, 0, 0.55);
+}
+
+.home-card p {
+  margin: 0 0 28px;
+  font-size: 12px;
+  line-height: 2;
+  color: #d7ddff;
+}
+
+.enter-btn {
+  display: inline-block;
+  padding: 14px 22px;
+  border: 2px solid #fff;
+  color: #fff;
+  text-decoration: none;
+  background: rgba(70, 100, 255, 0.2);
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.enter-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+:root {
+  --bg: #1b1d2a;
+  --panel: #eef0f4;
+  --panel-dark: #20222b;
+  --panel-border: #0f1220;
+  --blue: #3657c8;
+  --blue-dark: #2944a5;
+  --text: #10131d;
+  --white: #ffffff;
+  --soft: #d8dde9;
+  --canvas-bg: #f4f5f8;
+  --grid: #000;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: var(--bg);
+  font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
+}
+
+.app-shell {
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+}
+
+/* Top Bar */
+.topbar {
+  height: 60px;
+  background: #cccccc;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 18px;
+  gap: 20px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 12px;
+  min-width: 320px;
+}
+
+.brand-title {
+  font-weight: 800;
+  letter-spacing: 1px;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.brand-subtitle {
+  font-size: 10px;
+  opacity: 0.9;
+  margin-top: 3px;
+  letter-spacing: 1.5px;
+}
+
+/* Workspace */
+.workspace {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 220px 1fr 260px;
+  min-height: 0;
+}
+
+/* Sidebars */
+.sidebar {
+  min-height: 0;
+  padding: 8px;
+  background: #1d2030;
+}
+
+.left {
+  border-right: 2px solid rgba(255, 255, 255, 0.08);
+}
+
+.right {
+  border-left: 2px solid rgba(255, 255, 255, 0.08);
+}
+
+.panel {
+  border: 2px solid #0f1320;
+  border-radius: 3px;
+  overflow: hidden;
+  background: var(--panel);
+  color: var(--text);
+  margin-bottom: 10px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+}
+
+.panel-header {
+  background: #cccccc;
+  font-weight: 800;
+  padding: 10px 12px;
+  letter-spacing: 1px;
+  font-size: 15px;
+}
+
+.panel-body {
+  padding: 10px;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.panel-body.small {
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.bold {
+  font-weight: 800;
+}
+
+.info-panel .panel-body {
+  min-height: 150px;
+}
+
+/* Canvas Area */
+.canvas-wrap {
+  min-width: 0;
+  min-height: 0;
+  padding: 12px;
+  background: #dfe3ec;
+  display: flex;
+}
+
+.canvas-stage {
+  flex: 1;
+  position: relative;
+  border: 1px solid #c4c9d6;
+  border-radius: 6px;
+  background:
+    radial-gradient(circle at 1px 1px, var(--grid) 1px, transparent 0) 0 0 /
+      10px 10px,
+    linear-gradient(180deg, #fafbfc 0%, var(--canvas-bg) 100%);
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.65);
+}
+
+canvas {
+  display: block;
+}
+
+.upper-canvas {
+  background: transparent !important;
+}
+
+/* Right Archive */
+.archive-panel {
+  height: calc(100vh - 74px - 24px);
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0;
+}
+
+.archive-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.asset-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  align-content: start;
+  background: #f7f8fb;
 }
 
 .thumb {
   width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
   cursor: pointer;
-  border: 2px solid transparent;
+  border: 1px solid #c8cfdd;
+  background: #fff;
+  border-radius: 6px;
+  image-rendering: pixelated;
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
 }
 
 .thumb:hover {
-  border: 2px solid white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
 }
 
-/* CANVAS AREA */
-.canvas-zone {
-  flex: 1;
+.archive-footer {
+  padding: 12px 10px;
+  border-top: 1px solid #d3d8e6;
+  background: #f7f8fb;
+  font-size: 12px;
+  font-weight: 800;
+  color: #33405f;
+  text-align: center;
+}
+
+/* Bottom Bar */
+.bottombar {
+  height: 30px;
+  background: #cccccc;
+  border-top: 2px solid rgba(255, 255, 255, 0.18);
   display: flex;
-  justify-content: center;
   align-items: center;
-  background: #222;
-
-  
-
+  justify-content: center;
+  padding: 0 18px;
+  gap: 20px;
 }
 
-canvas {
-  border: 2px solid #666;
-  background: white;
-
-  
+.status {
+  align-items: center;
+  display: flex;
+  font-size: 12px;
+  font-weight: 800;
+  gap: 10px;
+  letter-spacing: 0.5px;
 }
 
-.upper-canvas {
-  background: rgb(255, 255, 255);
- 
- 
+/* Rabbit Hole Link */
+.rabbit-zone {
+  margin-top: auto;
+  padding-top: 8px;
 }
-/* #mainCanvas{
-  width:100% !important;
-} */
 
+.rabbit-link {
+  display: block;
+  width: 100%;
+  transition: transform 0.15s ease;
+}
 
+.rabbit-link:hover {
+  transform: scale(1.03);
+}
+
+.rabbit-hole-img {
+  width: 100%;
+  display: block;
+  image-rendering: pixelated;
+  border-radius: 6px;
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+.hell-page {
+  --bg: #120707;
+  --panel: #1f1515;
+  --panel-dark: #140d0d;
+  --panel-border: #2f1111;
+  --blue: #7a1212;
+  --blue-dark: #4f0b0b;
+  --text: #f5d7d7;
+  --white: #fff3f3;
+  --soft: #3a2222;
+  --canvas-bg: #1c1111;
+  --grid: rgba(255, 80, 80, 0.08);
+}
+
+.hell-page .topbar {
+  background: linear-gradient(180deg, #5f1010 0%, #3d0a0a 100%);
+}
+
+.hell-page .brand-title,
+.hell-page .brand-subtitle {
+  color: #ffd9d9;
+}
+
+.hell-page .sidebar {
+  background: #160b0b;
+}
+
+.hell-page .left,
+.hell-page .right {
+  border-color: rgba(255, 120, 120, 0.12);
+}
+
+.hell-page .panel {
+  background: #261717;
+  color: #f2dede;
+  border-color: #3b1414;
+}
+
+.hell-page .panel-header {
+  background: linear-gradient(180deg, #7a1a1a 0%, #520d0d 100%);
+  color: #fff0f0;
+}
+
+.hell-page .canvas-wrap {
+  background: #2a1515;
+}
+
+.hell-page .canvas-stage {
+  background:
+    radial-gradient(
+        circle at 1px 1px,
+        rgba(255, 100, 100, 0.08) 1px,
+        transparent 0
+      )
+      0 0 / 10px 10px,
+    linear-gradient(180deg, #251313 0%, #140909 100%);
+  border-color: #4d1a1a;
+}
+
+.hell-page .archive-panel {
+  background: #261717;
+}
+
+.hell-page .asset-scroll,
+.hell-page .archive-footer {
+  background: #1a1010;
+  color: #f0cfcf;
+  border-color: #3b1414;
+}
+
+.hell-page .thumb {
+  background: #2a1a1a;
+  border-color: #4b2424;
+}
+
+.hell-page .bottombar {
+  background: #4a0d0d;
+}
+
+.hell-page .status {
+  color: #ffe1e1;
+}
+
+.hell-page .portal-zone {
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.hell-page .portal-link {
+  display: block;
+  width: 100%;
+  transition: transform 0.15s ease;
+}
+
+.hell-page .portal-link:hover {
+  transform: scale(1.03);
+}
+
+.hell-page .portal-img {
+  width: 100%;
+  display: block;
+  image-rendering: pixelated;
+  border-radius: 6px;
+  border: 2px solid rgba(255, 120, 120, 0.12);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+}

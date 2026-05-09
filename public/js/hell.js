@@ -32,19 +32,17 @@ function addImage(src, x = 200, y = 200) {
         originY: "center",
         selectable: true,
         transparentCorners: false,
-        cornerColor: "#3657c8",
-        borderColor: "#3657c8",
+        cornerColor: "#8b1d1d",
+        borderColor: "#8b1d1d",
         cornerStyle: "circle",
       });
 
-      // Scale Down Large Images
       if (img.width > 300) {
         img.scaleToWidth(180);
       }
 
       canvas.add(img);
       canvas.setActiveObject(img);
-
       canvas.requestRenderAll();
     },
     {
@@ -63,7 +61,6 @@ document.querySelectorAll(".thumb").forEach((thumb) => {
     );
   });
 
-  // Enable Drag
   thumb.setAttribute("draggable", true);
 
   thumb.addEventListener("dragstart", (e) => {
@@ -82,7 +79,6 @@ dropSurface.addEventListener("drop", function (e) {
   e.preventDefault();
 
   const src = e.dataTransfer.getData("img");
-
   const rect = canvas.upperCanvasEl.getBoundingClientRect();
 
   const x = e.clientX - rect.left;

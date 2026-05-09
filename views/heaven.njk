@@ -1,51 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-
-    <link rel="stylesheet" href="/css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-
-    <!-- TOP INFO BAR -->
-    <div class="top-info">
-        <h1>Heaven</h1>
-
-        <p>
-            A high-frequency signal space where messages are clean, fragmented,
-            and constantly reinterpreted.
-        </p>
-
-        <div class="nav-links">
-            <a href="/">Back to Main</a>
-            <a href="/hell">Go to Hell</a>
+  <div class="app-shell">
+    <!-- Top Bar -->
+    <header class="topbar">
+      <div class="brand">
+        <div>
+          <div class="brand-title">UTOPIA NETWORK</div>
+          <div class="brand-subtitle">BUILD THE WORLD WE WANT</div>
         </div>
-    </div>
+      </div>
+    </header>
 
-    <!-- WORKSPACE -->
-    <div class="workspace">
+    <!-- Main Area -->
+    <main class="workspace">
+      <!-- Left Sidebar -->
+      <aside class="sidebar left">
+        <section class="panel info-panel">
+          <div class="panel-header">UTOPIA MODE</div>
+          <div class="panel-body">
+            <p>
+              This is your space to imagine, create, and share the world we want to live in.
+            </p>
+            <p>
+              Choose images from the archive and add them to your canvas.
+            </p>
+            <p class="bold">Build together. Dream together.</p>
+          </div>
+        </section>
 
-        <!-- LEFT TOOLBAR -->
-        <div class="toolbar">
-            <h3>Signal Assets</h3>
+        <section class="panel canvas-info-panel">
+          <div class="panel-header">CANVAS INFO</div>
+          <div class="panel-body small">
+            <div>X: <span id="mouseX">0</span>, Y: <span id="mouseY">0</span></div>
+          </div>
+        </section>
 
-            <div class="asset-scroll">
-                {% for img in assets %}
-                    <img src="{{ img }}" class="thumb" data-src="{{ img }}">
-                {% endfor %}
-            </div>
+        <section class="rabbit-zone">
+            <a href="/hell" class="rabbit-link">
+                <img
+                    src="/assets/hell-button.png"
+                    alt="Rabbit Hole"
+                    class="rabbit-hole-img"
+                />
+            </a>
+        </section>
+      </aside>
+
+      <!-- Center Canvas -->
+      <section class="canvas-wrap">
+        <div class="canvas-stage">
+          <canvas id="mainCanvas"></canvas>
         </div>
+      </section>
 
-        <!-- CANVAS -->
-        <div class="canvas-zone">
-            <canvas id="mainCanvas" ></canvas>
-        </div>
+      <!-- Right Sidebar -->
+      <aside class="sidebar right">
+        <section class="panel archive-panel">
+          <div class="panel-header archive-header">
+            <span>IMAGE ARCHIVE</span>
+          </div>
 
-    </div>
+          <div class="asset-scroll">
+            {% for img in assets %}
+              <img src="{{ img }}" class="thumb" data-src="{{ img }}" alt="asset">
+            {% endfor %}
+          </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/fabric@4.6.0/dist/fabric.min.js"></script>
-    <script src="/js/heaven.js"></script>
+          <div class="archive-footer">
+            <p>DRAG OR CLICK AN IMAGE TO ADD TO CANVAS.</p>
+          </div>
+        </section>
+      </aside>
+    </main>
 
+    <!-- Bottom Bar -->
+    <footer class="bottombar">
+      <div class="status">WELCOME TO UTOPIA. EVERY PIXEL IS A POSSIBILITY.</div>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/fabric@4.6.0/dist/fabric.min.js"></script>
+  <script src="/js/heaven.js"></script>
 </body>
 </html>

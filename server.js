@@ -1,21 +1,32 @@
 const express = require("express");
 const nunjucks = require("nunjucks");
 const fs = require("fs");
-const path = require('path');
+const path = require("path");
 
 const app = express();
 const PORT = 3000;
 
-// serve static files (CSS, images, etc.)
-app.use(express.static("public"));
+// serve static files (CSS, images, js, etc.)
+app.use(express.static(path.join(__dirname, "public")));
 
 // nunjucks setup
-nunjucks.configure("views", {
+nunjucks.configure(path.join(__dirname, "views"), {
   autoescape: true,
   express: app,
 });
 
 app.set("view engine", "njk");
+
+// helper to safely read asset folders
+function getAssets(folderPath, publicPrefix) {
+  try {
+    const files = fs.readdirSync(folderPath);
+    return files.map((file) => `${publicPrefix}/${file}`);
+  } catch (err) {
+    console.error(`Could not read assets from ${folderPath}:`, err.message);
+    return [];
+  }
+}
 
 // MAIN PAGE
 app.get("/", (req, res) => {
@@ -26,18 +37,28 @@ app.get("/", (req, res) => {
 
 // HEAVEN PAGE
 app.get("/heaven", (req, res) => {
+  const assets = getAssets(
+    path.join(__dirname, "public/assets/heaven"),
+    "/assets/heaven",
+  );
 
-const files = fs.readdirSync("public/assets/heaven");
-const assets = files.map(file => "/assets/heaven/" + file);
- res.render('heaven', {assets});
-
+  res.render("heaven", {
+    title: "Heaven",
+    assets,
+  });
 });
 
 // HELL PAGE
 app.get("/hell", (req, res) => {
-  const files = fs.readdirSync('public/assets/hell');
-  const assets = files.map(file =>'assets/hell' + file);
-  res.render('hell', {assets});
+  const assets = getAssets(
+    path.join(__dirname, "public/assets/hell"),
+    "/assets/hell",
+  );
+
+  res.render("hell", {
+    title: "Hell",
+    assets,
+  });
 });
 
 // start server
