@@ -7,11 +7,11 @@
 }
 
 .hero-img {
-  width: 320px;
+  width: 620px;
   height: auto;
   display: block;
   margin: 20px auto;
-  border: 5px solid red;
+  border: none;
 }
 
 .home-overlay {
@@ -27,7 +27,6 @@
   padding: 32px 28px;
   margin: 20px;
   background: rgba(0, 0, 0, 0.5);
-  border: 3px solid rgba(255, 255, 255, 0.85);
   box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.25);
   color: #f6f7ff;
   text-align: center;
@@ -103,11 +102,29 @@ body {
   height: 60px;
   background: #cccccc;
   border-bottom: 2px solid rgba(255, 255, 255, 0.25);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 0 18px;
+}
+
+.topbar {
+  position: relative;
+}
+
+.topbar-left,
+.topbar-right {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 0 18px;
-  gap: 20px;
+  gap: 12px;
+}
+
+.topbar-left {
+  justify-self: start;
+}
+
+.topbar-right {
+  justify-self: end;
 }
 
 .brand {
@@ -116,7 +133,6 @@ body {
   justify-content: center;
   text-align: center;
   gap: 12px;
-  min-width: 320px;
 }
 
 .brand-title {
@@ -208,8 +224,7 @@ body {
   border: 1px solid #c4c9d6;
   border-radius: 6px;
   background:
-    radial-gradient(circle at 1px 1px, var(--grid) 1px, transparent 0) 0 0 /
-      10px 10px,
+    radial-gradient(circle at 1px 1px, var(--grid) 1px, transparent 0) 0 0 / 10px 10px,
     linear-gradient(180deg, #fafbfc 0%, var(--canvas-bg) 100%);
   overflow: hidden;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.65);
@@ -414,12 +429,9 @@ canvas {
 
 .hell-page .canvas-stage {
   background:
-    radial-gradient(
-        circle at 1px 1px,
-        rgba(255, 100, 100, 0.08) 1px,
-        transparent 0
-      )
-      0 0 / 10px 10px,
+    radial-gradient(circle at 1px 1px,
+      rgba(255, 100, 100, 0.08) 1px,
+      transparent 0) 0 0 / 10px 10px,
     linear-gradient(180deg, #251313 0%, #140909 100%);
   border-color: #4d1a1a;
 }
@@ -498,4 +510,358 @@ canvas {
 
 .hell-page #brushSize {
   accent-color: #ff2a2a;
+}
+
+.topbar-left,
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 220px;
+}
+
+.topbar-left {
+  justify-content: flex-start;
+}
+
+.topbar-right {
+  justify-content: flex-end;
+}
+
+.top-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 90px;
+  height: 42px;
+  padding: 0 14px;
+  background: #f3f3f3;
+  color: #111;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+  border: 3px solid #111;
+  box-shadow: inset 0 0 0 2px #d9d9d9;
+  cursor: pointer;
+}
+
+.top-nav-btn:hover {
+  background: #e7ebf7;
+}
+
+/* ABOUT MODAL */
+.about-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.about-modal.hidden {
+  display: none;
+}
+
+.about-modal-box {
+  width: min(700px, 90vw);
+  max-height: 80vh;
+  overflow-y: auto;
+  background: #f7f8fb;
+  color: #111;
+  border: 3px solid #111827;
+  border-radius: 8px;
+  padding: 28px 24px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
+  position: relative;
+}
+
+.about-modal-box h2 {
+  margin-top: 0;
+  margin-bottom: 18px;
+  font-size: 28px;
+}
+
+.about-modal-box p {
+  font-size: 16px;
+  line-height: 1.7;
+  margin-bottom: 14px;
+}
+
+.about-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 42px;
+  height: 42px;
+  border: 2px solid #111;
+  background: white;
+  color: #111;
+  font-weight: 800;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.about-close-btn:hover {
+  background: #eceff7;
+}
+
+/* =========================
+   HEAVEN THEME POLISH
+   ========================= */
+
+body[data-world="heaven"] {
+  --bg: #dfe8ff;
+  --panel: #f7fbff;
+  --panel-dark: #dfe9ff;
+  --panel-border: #9bb6ff;
+  --text: #17305c;
+  --white: #ffffff;
+  --soft: #d8e6ff;
+  --canvas-bg: #f8fbff;
+  --grid: rgba(70, 110, 210, 0.22);
+  background: linear-gradient(180deg, #d9e6ff 0%, #c9dcff 45%, #b8d1ff 100%);
+}
+
+body[data-world="heaven"] .topbar {
+  background: linear-gradient(180deg, #f7fbff 0%, #dbe8ff 100%);
+  border-bottom: 2px solid rgba(120, 160, 255, 0.45);
+  box-shadow: 0 4px 18px rgba(90, 130, 220, 0.12);
+}
+
+body[data-world="heaven"] .brand-title,
+body[data-world="heaven"] .brand-subtitle {
+  color: #244a96;
+}
+
+body[data-world="heaven"] .sidebar {
+  background: linear-gradient(180deg, #bcd0ff 0%, #97b7ff 100%);
+}
+
+body[data-world="heaven"] .left,
+body[data-world="heaven"] .right {
+  border-color: rgba(110, 145, 230, 0.35);
+}
+
+body[data-world="heaven"] .panel {
+  background: rgba(248, 252, 255, 0.96);
+  color: #1d3768;
+  border: 2px solid #88aaf3;
+  box-shadow: 0 8px 22px rgba(85, 125, 215, 0.18);
+}
+
+body[data-world="heaven"] .panel-header {
+  background: linear-gradient(180deg, #eef5ff 0%, #cddfff 100%);
+  color: #1f4288;
+  border-bottom: 1px solid rgba(110, 145, 230, 0.3);
+}
+
+body[data-world="heaven"] .panel-body {
+  color: #22406f;
+}
+
+body[data-world="heaven"] .canvas-wrap {
+  background: linear-gradient(180deg, #e8f1ff 0%, #d4e5ff 100%);
+}
+
+body[data-world="heaven"] .canvas-stage {
+  border: 2px solid #9fbcff;
+  background:
+    radial-gradient(circle at 1px 1px, rgba(90, 125, 220, 0.28) 1px, transparent 0) 0 0 / 10px 10px,
+    linear-gradient(180deg, #ffffff 0%, #f3f8ff 45%, #e7f1ff 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.9),
+    0 0 24px rgba(130, 175, 255, 0.18);
+}
+
+body[data-world="heaven"] .archive-panel {
+  background: rgba(248, 252, 255, 0.97);
+}
+
+body[data-world="heaven"] .archive-tools {
+  background: #eef5ff;
+  border-bottom: 1px solid #c6d9ff;
+}
+
+body[data-world="heaven"] .upload-btn {
+  background: linear-gradient(180deg, #ffffff 0%, #e8f1ff 100%);
+  color: #1d3768;
+  border: 1px solid #7f9fe4;
+  box-shadow: 0 2px 8px rgba(90, 125, 215, 0.12);
+}
+
+body[data-world="heaven"] .upload-btn:hover {
+  background: linear-gradient(180deg, #ffffff 0%, #dceaff 100%);
+}
+
+body[data-world="heaven"] .upload-status {
+  color: #3c5fa5;
+}
+
+body[data-world="heaven"] .asset-scroll,
+body[data-world="heaven"] .archive-footer {
+  background: #f8fbff;
+  color: #31518f;
+  border-color: #c9d9fa;
+}
+
+body[data-world="heaven"] .thumb {
+  background: #ffffff;
+  border: 1px solid #b7cbf3;
+  box-shadow: 0 2px 6px rgba(90, 125, 215, 0.08);
+}
+
+body[data-world="heaven"] .thumb:hover {
+  box-shadow: 0 6px 14px rgba(95, 140, 230, 0.18);
+}
+
+body[data-world="heaven"] .bottombar {
+  background: linear-gradient(180deg, #dce8ff 0%, #bfd5ff 100%);
+  border-top: 2px solid rgba(120, 160, 255, 0.35);
+}
+
+body[data-world="heaven"] .status {
+  color: #23458b;
+}
+
+body[data-world="heaven"] .rabbit-hole-img {
+  border: 2px solid rgba(120, 170, 255, 0.45);
+  box-shadow: 0 8px 18px rgba(110, 155, 240, 0.2);
+}
+
+body[data-world="heaven"] .top-nav-btn {
+  background: linear-gradient(180deg, #ffffff 0%, #eaf2ff 100%);
+  color: #1d3768;
+  border: 3px solid #3657c8;
+  box-shadow: inset 0 0 0 2px #d9e7ff;
+}
+
+body[data-world="heaven"] .top-nav-btn:hover {
+  background: linear-gradient(180deg, #ffffff 0%, #dceaff 100%);
+}
+
+body[data-world="heaven"] .about-modal-box {
+  background: linear-gradient(180deg, #ffffff 0%, #f4f9ff 100%);
+  color: #18325e;
+  border: 3px solid #7fa3f0;
+  box-shadow: 0 16px 40px rgba(90, 125, 215, 0.24);
+}
+
+body[data-world="heaven"] .about-close-btn {
+  border: 2px solid #3657c8;
+  color: #244a96;
+  background: #ffffff;
+}
+
+body[data-world="heaven"] .about-close-btn:hover {
+  background: #e7f0ff;
+}
+
+/* =========================
+   WORD BANK
+========================= */
+
+.word-bank-wrap {
+  padding: 10px;
+  border-top: 1px solid #d3d8e6;
+  background: #f7f8fb;
+}
+
+.word-bank-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #33405f;
+}
+
+.mini-tool-btn {
+  padding: 6px 10px;
+  border: 1px solid #0f1320;
+  background: #ffffff;
+  color: #10131d;
+  font-weight: 800;
+  font-size: 11px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.mini-tool-btn:hover {
+  background: #e8ecf6;
+}
+
+.word-bank {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.word-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+  padding: 6px 10px;
+  background: #ffffff;
+  color: #17305c;
+  border: 1px solid #9db6eb;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(80, 110, 190, 0.08);
+  user-select: none;
+}
+
+.word-chip:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 12px rgba(80, 110, 190, 0.14);
+}
+
+/* Heaven feel */
+body[data-world="heaven"] .word-bank-wrap {
+  background: #f8fbff;
+  border-top: 1px solid #c9d9fa;
+}
+
+body[data-world="heaven"] .word-chip {
+  background: linear-gradient(180deg, #ffffff 0%, #eef5ff 100%);
+  color: #1d3768;
+  border: 1px solid #9bb8f0;
+}
+
+/* Hell feel */
+.hell-page .word-bank-wrap {
+  background: #1a1010;
+  border-top: 1px solid #3b1414;
+}
+
+.hell-page .word-bank-header {
+  color: #f0cfcf;
+}
+
+.hell-page .mini-tool-btn {
+  background: #2a1a1a;
+  color: #f5d7d7;
+  border-color: #4b2424;
+}
+
+.hell-page .mini-tool-btn:hover {
+  background: #3a2323;
+}
+
+.hell-page .word-chip {
+  background: linear-gradient(180deg, #2a1a1a 0%, #1b1111 100%);
+  color: #ffe1e1;
+  border: 1px solid #6b2d2d;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+}
+
+.hell-page .word-chip:hover {
+  box-shadow: 0 5px 12px rgba(120, 40, 40, 0.22);
 }

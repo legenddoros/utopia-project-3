@@ -1,28 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{{ title }}</title>
   <link rel="stylesheet" href="/css/style.css" />
 </head>
+
 <body data-world="heaven">
   <div class="app-shell">
     <!-- Top Bar -->
     <header class="topbar">
+      <div class="topbar-left">
+        <a href="/" class="top-nav-btn">HOME</a>
+        <button type="button" id="openAboutBtn" class="top-nav-btn">ABOUT</button>
+      </div>
+
       <div class="brand">
         <div>
           <div class="brand-title">UTOPIA NETWORK</div>
           <div class="brand-subtitle">BUILD THE WORLD WE WANT</div>
         </div>
       </div>
+
+      <div class="topbar-right"></div>
     </header>
 
     <!-- Main Area -->
     <main class="workspace">
       <!-- Left Sidebar -->
       <aside class="sidebar left">
-        <section class="panel info-panel">
+        <section class="panel info-panel" id="aboutPanel">
           <div class="panel-header">UTOPIA MODE</div>
           <div class="panel-body">
             <p>
@@ -43,13 +52,9 @@
         </section>
 
         <section class="rabbit-zone">
-            <a href="/hell" class="rabbit-link">
-                <img
-                    src="/assets/hell-button.png"
-                    alt="Rabbit Hole"
-                    class="rabbit-hole-img"
-                />
-            </a>
+          <a href="/hell" class="rabbit-link">
+            <img src="/assets/hell-button.png" alt="Rabbit Hole" class="rabbit-hole-img" />
+          </a>
         </section>
       </aside>
 
@@ -74,17 +79,14 @@
             <button type="button" id="drawBtn" class="upload-btn">
               Draw Mode: Off
             </button>
+            <button type="button" id="eraseBtn" class="upload-btn">
+              Erase Selected
+            </button>
 
             <div class="brush-inputs">
-              <input type="color" id="brushColor" value="#111111" />
+              <input type="color" id="brushColor" value="#7ec8ff" />
 
-              <input
-                type="range"
-                id="brushSize"
-                min="1"
-                max="30"
-                value="4"
-              />
+              <input type="range" id="brushSize" min="1" max="30" value="4" />
             </div>
 
             <span id="uploadStatus" class="upload-status"></span>
@@ -92,12 +94,20 @@
 
           <div class="asset-scroll">
             {% for img in assets %}
-              <img src="{{ img }}" class="thumb" data-src="{{ img }}" alt="asset">
+            <img src="{{ img }}" class="thumb" data-src="{{ img }}" alt="asset">
             {% endfor %}
           </div>
 
           <div class="archive-footer">
             <p>DRAG OR CLICK AN IMAGE TO ADD TO CANVAS.</p>
+          </div>
+          <div class="word-bank-wrap">
+            <div class="word-bank-header">
+              <span>WORD BANK</span>
+              <button type="button" id="refreshWordsBtn" class="mini-tool-btn">Refresh</button>
+            </div>
+
+            <div id="wordBank" class="word-bank"></div>
           </div>
         </section>
       </aside>
@@ -109,7 +119,38 @@
     </footer>
   </div>
 
+  <div id="aboutModal" class="about-modal hidden">
+    <div class="about-modal-box">
+      <button type="button" id="closeAboutBtn" class="about-close-btn">X</button>
+
+      <h2>About This Project</h2>
+
+      <p>
+        Utopia Network is a speculative communication project where users build
+        visual worlds through images, drawing, and interaction.
+      </p>
+
+      <p>
+        The project was created to explore how people might communicate through
+        visual symbols instead of only using normal text. In this space, users
+        can imagine hopeful futures and create a shared utopian world.
+      </p>
+
+      <p>
+        This project was built with Express, Nunjucks, Fabric.js, HTML, CSS, and
+        JavaScript. The backend helps render the pages and organize uploaded
+        images, while the frontend allows users to interact with the canvas.
+      </p>
+
+      <p>
+        The main goal of the project is to make communication feel more visual,
+        playful, and collaborative.
+      </p>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/fabric@4.6.0/dist/fabric.min.js"></script>
   <script src="/js/script.js"></script>
 </body>
+
 </html>

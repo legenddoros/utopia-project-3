@@ -1,21 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{{ title }}</title>
   <link rel="stylesheet" href="/css/style.css" />
 </head>
+
 <body class="hell-page" data-world="hell">
   <div class="app-shell">
     <!-- Top Bar -->
     <header class="topbar">
+      <div class="topbar-left"></div>
+
       <div class="brand">
         <div>
           <div class="brand-title">HELL NETWORK</div>
           <div class="brand-subtitle">BUILD THE WORLD WE FEAR</div>
         </div>
       </div>
+
+      <div class="topbar-right"></div>
     </header>
 
     <!-- Main Area -->
@@ -44,11 +50,7 @@
 
         <section class="portal-zone">
           <a href="/heaven" class="portal-link">
-            <img
-              src="/assets/heaven-button.jpg"
-              alt="Return to Heaven"
-              class="portal-img"
-            />
+            <img src="/assets/heaven-button.jpg" alt="Return to Heaven" class="portal-img" />
           </a>
         </section>
       </aside>
@@ -77,25 +79,27 @@
 
             <input type="color" id="brushColor" value="#ff2a2a" />
 
-            <input
-              type="range"
-              id="brushSize"
-              min="1"
-              max="30"
-              value="4"
-            />
+            <input type="range" id="brushSize" min="1" max="30" value="4" />
 
             <span id="uploadStatus" class="upload-status"></span>
           </div>
 
           <div class="asset-scroll">
             {% for img in assets %}
-              <img src="{{ img }}" class="thumb" data-src="{{ img }}" alt="asset">
+            <img src="{{ img }}" class="thumb" data-src="{{ img }}" alt="asset">
             {% endfor %}
           </div>
 
           <div class="archive-footer">
             <p>DRAG OR CLICK AN IMAGE TO ADD TO CANVAS.</p>
+          </div>
+          <div class="word-bank-wrap">
+            <div class="word-bank-header">
+              <span>WORD BANK</span>
+              <button type="button" id="refreshWordsBtn" class="mini-tool-btn">Refresh</button>
+            </div>
+
+            <div id="wordBank" class="word-bank"></div>
           </div>
         </section>
       </aside>
@@ -110,4 +114,5 @@
   <script src="https://cdn.jsdelivr.net/npm/fabric@4.6.0/dist/fabric.min.js"></script>
   <script src="/js/script.js"></script>
 </body>
+
 </html>
