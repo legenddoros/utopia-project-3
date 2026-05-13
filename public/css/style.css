@@ -166,6 +166,8 @@ body {
 
 .left {
   border-right: 2px solid rgba(255, 255, 255, 0.08);
+  border-left: 15px solid rgba(255, 255, 255, 0.08);
+  
 }
 
 .right {
@@ -215,7 +217,9 @@ body {
   min-height: 0;
   padding: 12px;
   background: #dfe3ec;
-  display: flex;
+  display: block;
+  overflow:auto;
+
 }
 
 .canvas-stage {
@@ -223,6 +227,7 @@ body {
   position: relative;
   border: 1px solid #c4c9d6;
   border-radius: 6px;
+
   background:
     radial-gradient(circle at 1px 1px, var(--grid) 1px, transparent 0) 0 0 / 10px 10px,
     linear-gradient(180deg, #fafbfc 0%, var(--canvas-bg) 100%);
@@ -396,6 +401,8 @@ canvas {
 
 .hell-page .topbar {
   background: linear-gradient(180deg, #5f1010 0%, #3d0a0a 100%);
+
+
 }
 
 .hell-page .brand-title,
@@ -428,11 +435,20 @@ canvas {
 }
 
 .hell-page .canvas-stage {
-  background:
+
+  width:3000px;
+  height:5000px;
+
+  background-image: url("/assets/helllandscape2.png"), url("/assets/checkerboard2.png");
+  background-size: cover, cover;
+  background-position: center,center;
+  background-repeat: no-repeat,no-repeat;
+  background-attachment: scroll,fixed;
+  /* background:
     radial-gradient(circle at 1px 1px,
       rgba(255, 100, 100, 0.08) 1px,
       transparent 0) 0 0 / 10px 10px,
-    linear-gradient(180deg, #251313 0%, #140909 100%);
+    linear-gradient(180deg, #251313 0%, #140909 100%); */
   border-color: #4d1a1a;
 }
 
@@ -623,6 +639,7 @@ body[data-world="heaven"] {
   --canvas-bg: #f8fbff;
   --grid: rgba(70, 110, 210, 0.22);
   background: linear-gradient(180deg, #d9e6ff 0%, #c9dcff 45%, #b8d1ff 100%);
+ 
 }
 
 body[data-world="heaven"] .topbar {
@@ -668,9 +685,16 @@ body[data-world="heaven"] .canvas-wrap {
 
 body[data-world="heaven"] .canvas-stage {
   border: 2px solid #9fbcff;
-  background:
+  /* background:
     radial-gradient(circle at 1px 1px, rgba(90, 125, 220, 0.28) 1px, transparent 0) 0 0 / 10px 10px,
-    linear-gradient(180deg, #ffffff 0%, #f3f8ff 45%, #e7f1ff 100%);
+    linear-gradient(180deg, #ffffff 0%, #f3f8ff 45%, #e7f1ff 100%); */
+    background-image: url("/assets/heavenbackground3.png"),url("/assets/checkerboard2.png");
+    background-repeat: no-repeat, no-repeat;
+    background-size: cover, cover;
+    background-position: center, center;
+    background-attachment: scroll, fixed;
+    width:6000px;
+    height:2000px;
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, 0.9),
     0 0 24px rgba(130, 175, 255, 0.18);
