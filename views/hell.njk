@@ -6,7 +6,7 @@
   <title>{{ title }}</title>
   <link rel="stylesheet" href="/css/style.css" />
 </head>
-<body class="hell-page">
+<body class="hell-page" data-world="hell">
   <div class="app-shell">
     <!-- Top Bar -->
     <header class="topbar">
@@ -67,6 +67,27 @@
             <span>IMAGE ARCHIVE</span>
           </div>
 
+          <div class="archive-tools">
+            <input type="file" id="assetUpload" accept="image/*" hidden />
+            <button type="button" id="uploadBtn" class="upload-btn">Upload Image</button>
+
+            <button type="button" id="drawBtn" class="upload-btn">
+              Draw Mode: Off
+            </button>
+
+            <input type="color" id="brushColor" value="#ff2a2a" />
+
+            <input
+              type="range"
+              id="brushSize"
+              min="1"
+              max="30"
+              value="4"
+            />
+
+            <span id="uploadStatus" class="upload-status"></span>
+          </div>
+
           <div class="asset-scroll">
             {% for img in assets %}
               <img src="{{ img }}" class="thumb" data-src="{{ img }}" alt="asset">
@@ -87,6 +108,6 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/fabric@4.6.0/dist/fabric.min.js"></script>
-  <script src="/js/hell.js"></script>
+  <script src="/js/script.js"></script>
 </body>
 </html>

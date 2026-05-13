@@ -3,8 +3,15 @@
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background: url("/assets/utopia.png") center center / cover no-repeat;
   font-family: "Press Start 2P", monospace;
+}
+
+.hero-img {
+  width: 320px;
+  height: auto;
+  display: block;
+  margin: 20px auto;
+  border: 5px solid red;
 }
 
 .home-overlay {
@@ -316,6 +323,48 @@ canvas {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
 }
 
+.archive-tools {
+  padding: 10px;
+  background: #f7f8fb;
+  border-bottom: 1px solid #d3d8e6;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.upload-btn {
+  display: inline-block;
+  padding: 8px 10px;
+  border: 1px solid #0f1320;
+  background: #ffffff;
+  color: #10131d;
+  font-weight: 800;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.upload-btn:hover {
+  background: #e8ecf6;
+}
+
+.upload-status {
+  font-size: 11px;
+  font-weight: 700;
+  color: #33405f;
+}
+
+.brush-inputs {
+  display: flex;
+  width: 100%;
+}
+
+.brush-inputs input {
+  flex: 1;
+}
+
 .hell-page {
   --bg: #120707;
   --panel: #1f1515;
@@ -421,4 +470,32 @@ canvas {
   border-radius: 6px;
   border: 2px solid rgba(255, 120, 120, 0.12);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+.hell-page .archive-tools {
+  background: #1a1010;
+  border-bottom: 1px solid #3b1414;
+}
+
+.hell-page .upload-btn {
+  background: #2a1a1a;
+  color: #f5d7d7;
+  border-color: #4b2424;
+}
+
+.hell-page .upload-btn:hover {
+  background: #3a2323;
+}
+
+.hell-page .upload-status {
+  color: #f0cfcf;
+}
+
+.hell-page #brushColor {
+  background: #2a1a1a;
+  border: 1px solid #4b2424;
+}
+
+.hell-page #brushSize {
+  accent-color: #ff2a2a;
 }
