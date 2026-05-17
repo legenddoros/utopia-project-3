@@ -167,7 +167,6 @@ body {
 .left {
   border-right: 2px solid rgba(255, 255, 255, 0.08);
   border-left: 15px solid rgba(255, 255, 255, 0.08);
-  
 }
 
 .right {
@@ -218,8 +217,7 @@ body {
   padding: 12px;
   background: #dfe3ec;
   display: block;
-  overflow:auto;
-
+  overflow: auto;
 }
 
 .canvas-stage {
@@ -229,7 +227,8 @@ body {
   border-radius: 6px;
 
   background:
-    radial-gradient(circle at 1px 1px, var(--grid) 1px, transparent 0) 0 0 / 10px 10px,
+    radial-gradient(circle at 1px 1px, var(--grid) 1px, transparent 0) 0 0 /
+      10px 10px,
     linear-gradient(180deg, #fafbfc 0%, var(--canvas-bg) 100%);
   overflow: hidden;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.65);
@@ -385,6 +384,75 @@ canvas {
   flex: 1;
 }
 
+.secret-button {
+  display: flex;
+  width: 100%;
+}
+
+.secret-button button {
+  flex: 1;
+}
+
+.secret-button {
+  display: flex;
+  width: 100%;
+}
+
+.secret-button button {
+  flex: 1;
+}
+
+.upload-status-container {
+  display: flex;
+  width: 100%;
+}
+
+.upload-status-container div {
+  flex: 1;
+  text-align: center;
+}
+
+.canvas-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  border-radius: 12px;
+}
+
+.canvas-stage canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.whisper-btn {
+  margin-top: 10px;
+
+  border: none;
+  background: transparent;
+
+  opacity: 0.32;
+
+  font-size: 10px;
+  letter-spacing: 1.8px;
+  text-transform: lowercase;
+
+  cursor: pointer;
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+
+  color: #6f8ed8;
+}
+
+.whisper-btn:hover {
+  opacity: 0.72;
+  transform: translateY(-1px);
+}
+
 .hell-page {
   --bg: #120707;
   --panel: #1f1515;
@@ -401,8 +469,6 @@ canvas {
 
 .hell-page .topbar {
   background: linear-gradient(180deg, #5f1010 0%, #3d0a0a 100%);
-
-
 }
 
 .hell-page .brand-title,
@@ -435,15 +501,15 @@ canvas {
 }
 
 .hell-page .canvas-stage {
+  width: 3000px;
+  height: 5000px;
 
-  width:3000px;
-  height:5000px;
-
-  background-image: url("/assets/helllandscape2.png"), url("/assets/checkerboard2.png");
+  background-image:
+    url("/assets/helllandscape2.png"), url("/assets/checkerboard2.png");
   background-size: cover, cover;
-  background-position: center,center;
-  background-repeat: no-repeat,no-repeat;
-  background-attachment: scroll,fixed;
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
+  background-attachment: scroll, fixed;
   /* background:
     radial-gradient(circle at 1px 1px,
       rgba(255, 100, 100, 0.08) 1px,
@@ -639,7 +705,6 @@ body[data-world="heaven"] {
   --canvas-bg: #f8fbff;
   --grid: rgba(70, 110, 210, 0.22);
   background: linear-gradient(180deg, #d9e6ff 0%, #c9dcff 45%, #b8d1ff 100%);
- 
 }
 
 body[data-world="heaven"] .topbar {
@@ -688,13 +753,14 @@ body[data-world="heaven"] .canvas-stage {
   /* background:
     radial-gradient(circle at 1px 1px, rgba(90, 125, 220, 0.28) 1px, transparent 0) 0 0 / 10px 10px,
     linear-gradient(180deg, #ffffff 0%, #f3f8ff 45%, #e7f1ff 100%); */
-    background-image: url("/assets/heavenbackground3.png"),url("/assets/checkerboard2.png");
-    background-repeat: no-repeat, no-repeat;
-    background-size: cover, cover;
-    background-position: center, center;
-    background-attachment: scroll, fixed;
-    width:6000px;
-    height:2000px;
+  background-image:
+    url("/assets/heavenbackground3.png"), url("/assets/checkerboard2.png");
+  background-repeat: no-repeat, no-repeat;
+  background-size: cover, cover;
+  background-position: center, center;
+  background-attachment: scroll, fixed;
+  width: 6000px;
+  height: 2000px;
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, 0.9),
     0 0 24px rgba(130, 175, 255, 0.18);
@@ -888,4 +954,8 @@ body[data-world="heaven"] .word-chip {
 
 .hell-page .word-chip:hover {
   box-shadow: 0 5px 12px rgba(120, 40, 40, 0.22);
+}
+
+.hell-whisper {
+  color: #ff6a6a;
 }

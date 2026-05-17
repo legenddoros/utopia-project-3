@@ -64,8 +64,15 @@
 
       <!-- Center Canvas -->
       <section class="canvas-wrap">
-        <div class="canvas-stage">
-          <canvas id="mainCanvas"></canvas>
+        <div
+          class="canvas-stage"
+          data-world="heaven"
+        >
+          <canvas
+            id="mainCanvas"
+            width="1600"
+            height="900"
+          ></canvas>
         </div>
       </section>
 
@@ -93,7 +100,15 @@
               <input type="range" id="brushSize" min="1" max="30" value="4" />
             </div>
 
-            <span id="uploadStatus" class="upload-status"></span>
+            <div class="secret-button">
+              <button type="button" id="whisperBtn" class="whisper-btn">
+                remember eden
+              </button>
+            </div>
+
+            <div class="upload-status-container">
+              <div id="uploadStatus" class="upload-status"></div>
+            </div>
           </div>
 
           <div class="asset-scroll">
@@ -154,6 +169,12 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/fabric@4.6.0/dist/fabric.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+
+  <script>
+    window.WORLD = document.body.dataset.world;
+  </script>
+
   <script src="/js/script.js"></script>
 </body>
 

@@ -3,26 +3,150 @@ const canvas = new fabric.Canvas("mainCanvas", {
   selection: true,
 });
 
+const socket = io();
+
+let applyingRemoteState = false;
+let saveTimer = null;
+
 const wordBank = document.getElementById("wordBank");
 const refreshWordsBtn = document.getElementById("refreshWordsBtn");
 const openAboutBtn = document.getElementById("openAboutBtn");
 const closeAboutBtn = document.getElementById("closeAboutBtn");
 const aboutModal = document.getElementById("aboutModal");
+
 const world = document.body.dataset.world || "heaven";
+
 const uploadBtn = document.getElementById("uploadBtn");
 const assetUpload = document.getElementById("assetUpload");
 const uploadStatus = document.getElementById("uploadStatus");
 const assetScroll = document.querySelector(".asset-scroll");
 
-// implementing draw features
-
 const drawBtn = document.getElementById("drawBtn");
 const eraseBtn = document.getElementById("eraseBtn");
+
 const brushColor = document.getElementById("brushColor");
 const brushSize = document.getElementById("brushSize");
 
+const whisperBtn = document.getElementById("whisperBtn");
+
 canvas.isDrawingMode = false;
 
+// secret whisper reset
+if (whisperBtn) {
+  whisperBtn.addEventListener("click", async () => {
+    const prompts = [
+      "What is the meaning of life?",
+      "Enter the forgotten word.",
+      "Speak the oldest truth.",
+      "What holds the world together?",
+      "What survives every fire?",
+    ];
+
+    const randomPrompt = prompts[Math.floor(Math.random() * prompts.length)];
+
+    const answer = window.prompt(randomPrompt);
+
+    if (!answer) return;
+
+    try {
+      const response = await fetch("/api/whisper", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          answer,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        const confirmed = window.confirm(
+          world === "hell"
+            ? "Let the inferno consume everything?"
+            : "Return everything to light?",
+        );
+
+        if (!confirmed) return;
+
+        canvas.clear();
+
+        // restore brush
+        canvas.freeDrawingBrush = new fabric.PencilBrush(canvas);
+
+        if (brushColor) {
+          canvas.freeDrawingBrush.color = brushColor.value;
+        }
+
+        if (brushSize) {
+          canvas.freeDrawingBrush.width = parseInt(brushSize.value, 10);
+        }
+
+        canvas.renderAll();
+
+        emitCanvasState();
+
+        if (uploadStatus) {
+          uploadStatus.textContent =
+            world === "hell"
+              ? "the ashes drifted away"
+              : "everything became light again";
+        }
+      } else {
+        if (uploadStatus) {
+          uploadStatus.textContent =
+            world === "hell" ? "the gate remained closed" : "nothing answered";
+        }
+      }
+    } catch (err) {
+      console.error(err);
+
+      if (uploadStatus) {
+        uploadStatus.textContent = "the signal was lost";
+      }
+    }
+  });
+}
+
+// socket sync
+function loadCanvasState(state) {
+  if (!state) return;
+
+  applyingRemoteState = true;
+
+  canvas.loadFromJSON(state, () => {
+    canvas.renderAll();
+    applyingRemoteState = false;
+  });
+}
+
+function emitCanvasState() {
+  if (applyingRemoteState) return;
+
+  clearTimeout(saveTimer);
+
+  saveTimer = setTimeout(() => {
+    socket.emit("canvas:update", {
+      world,
+      state: canvas.toJSON(),
+    });
+  }, 200);
+}
+
+socket.emit("canvas:join", world);
+
+socket.on("canvas:init", ({ world: incomingWorld, state }) => {
+  if (incomingWorld !== world) return;
+  loadCanvasState(state);
+});
+
+socket.on("canvas:update", ({ world: incomingWorld, state }) => {
+  if (incomingWorld !== world) return;
+  loadCanvasState(state);
+});
+
+// about modal
 if (openAboutBtn && aboutModal) {
   openAboutBtn.addEventListener("click", () => {
     aboutModal.classList.remove("hidden");
@@ -44,10 +168,17 @@ if (aboutModal) {
 }
 
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && aboutModal && !aboutModal.classList.contains("hidden")) {
+  if (
+    event.key === "Escape" &&
+    aboutModal &&
+    !aboutModal.classList.contains("hidden")
+  ) {
     aboutModal.classList.add("hidden");
   }
 });
+
+// brush settings
+canvas.freeDrawingBrush = new fabric.PencilBrush(canvas);
 
 if (brushColor) {
   canvas.freeDrawingBrush.color = brushColor.value;
@@ -65,6 +196,7 @@ if (brushSize) {
   });
 }
 
+// draw mode
 if (drawBtn) {
   drawBtn.addEventListener("click", () => {
     canvas.isDrawingMode = !canvas.isDrawingMode;
@@ -73,8 +205,8 @@ if (drawBtn) {
       ? "Draw Mode: On"
       : "Draw Mode: Off";
 
-    // make it easier to draw without selecting objects
     canvas.selection = !canvas.isDrawingMode;
+
     canvas.forEachObject((obj) => {
       obj.selectable = !canvas.isDrawingMode;
       obj.evented = !canvas.isDrawingMode;
@@ -84,10 +216,10 @@ if (drawBtn) {
     canvas.requestRenderAll();
   });
 }
-//eraser button
+
+// erase objects
 if (eraseBtn) {
   eraseBtn.addEventListener("click", () => {
-    // if draw mode is on, turn it off first
     if (canvas.isDrawingMode) {
       canvas.isDrawingMode = false;
       canvas.selection = true;
@@ -105,12 +237,18 @@ if (eraseBtn) {
     const active = canvas.getActiveObject();
 
     if (!active) {
-      if (uploadStatus) uploadStatus.textContent = "Select something to erase.";
+      if (uploadStatus) {
+        uploadStatus.textContent = "Select something to erase.";
+      }
       return;
     }
 
     if (active.type === "activeSelection") {
-      active.forEachObject((obj) => canvas.remove(obj));
+      const objects = active.getObjects().slice();
+
+      objects.forEach((obj) => {
+        canvas.remove(obj);
+      });
     } else {
       canvas.remove(active);
     }
@@ -118,11 +256,13 @@ if (eraseBtn) {
     canvas.discardActiveObject();
     canvas.requestRenderAll();
 
-    if (uploadStatus) uploadStatus.textContent = "Object removed.";
+    if (uploadStatus) {
+      uploadStatus.textContent = "Object removed.";
+    }
   });
 }
 
-// resize canvas to fit layout
+// resize canvas
 function resizeCanvas() {
   const stage = document.querySelector(".canvas-stage");
   const canvasEl = document.getElementById("mainCanvas");
@@ -134,11 +274,12 @@ function resizeCanvas() {
 
   canvas.setWidth(width);
   canvas.setHeight(height);
+
   canvas.calcOffset();
   canvas.requestRenderAll();
 }
 
-// add image to canvas
+// add image
 function addImage(src, x = 200, y = 200) {
   fabric.Image.fromURL(
     src,
@@ -146,9 +287,12 @@ function addImage(src, x = 200, y = 200) {
       img.set({
         left: x,
         top: y,
+
         originX: "center",
         originY: "center",
+
         selectable: true,
+
         transparentCorners: false,
         cornerColor: "#3657c8",
         borderColor: "#3657c8",
@@ -160,7 +304,9 @@ function addImage(src, x = 200, y = 200) {
       }
 
       canvas.add(img);
+
       canvas.setActiveObject(img);
+
       canvas.requestRenderAll();
     },
     {
@@ -168,16 +314,22 @@ function addImage(src, x = 200, y = 200) {
     },
   );
 }
+
+// word magnets
 function addWordMagnet(word, x = 220, y = 220) {
   const textColor = world === "hell" ? "#ffe1e1" : "#18325e";
+
   const fillColor = world === "hell" ? "#241515" : "#ffffff";
+
   const strokeColor = world === "hell" ? "#7a2b2b" : "#8fb1f1";
 
   const text = new fabric.Text(word, {
     fontSize: 18,
     fontFamily: '"Trebuchet MS", "Segoe UI", Arial, sans-serif',
     fontWeight: "700",
+
     fill: textColor,
+
     originX: "center",
     originY: "center",
   });
@@ -185,13 +337,18 @@ function addWordMagnet(word, x = 220, y = 220) {
   const bg = new fabric.Rect({
     width: text.width + 28,
     height: text.height + 18,
+
     rx: 8,
     ry: 8,
+
     fill: fillColor,
+
     stroke: strokeColor,
     strokeWidth: 1.5,
+
     originX: "center",
     originY: "center",
+
     shadow:
       world === "hell"
         ? "0 3px 10px rgba(0,0,0,0.25)"
@@ -201,21 +358,35 @@ function addWordMagnet(word, x = 220, y = 220) {
   const magnet = new fabric.Group([bg, text], {
     left: x,
     top: y,
+
     originX: "center",
     originY: "center",
+
     selectable: true,
+
     transparentCorners: false,
+
     cornerColor: world === "hell" ? "#ff4d4d" : "#3657c8",
+
     borderColor: world === "hell" ? "#ff4d4d" : "#3657c8",
+
     cornerStyle: "circle",
   });
 
   canvas.add(magnet);
+
   canvas.setActiveObject(magnet);
+
   canvas.requestRenderAll();
 }
 
-// wire up a thumb so it can be clicked or dragged
+// canvas sync events
+canvas.on("object:added", emitCanvasState);
+canvas.on("object:modified", emitCanvasState);
+canvas.on("object:removed", emitCanvasState);
+canvas.on("path:created", emitCanvasState);
+
+// image thumbs
 function wireThumb(thumb) {
   thumb.addEventListener("click", () => {
     addImage(
@@ -228,30 +399,50 @@ function wireThumb(thumb) {
   thumb.setAttribute("draggable", true);
 
   thumb.addEventListener("dragstart", (e) => {
+    e.dataTransfer.setData("kind", "image");
     e.dataTransfer.setData("img", thumb.dataset.src);
   });
 }
 
-// existing thumbs
 document.querySelectorAll(".thumb").forEach(wireThumb);
 
+// word chip dragging
+function wireWordChip(chip, word) {
+  chip.setAttribute("draggable", true);
+
+  chip.addEventListener("click", () => {
+    addWordMagnet(word, 220 + Math.random() * 220, 160 + Math.random() * 180);
+  });
+
+  chip.addEventListener("dragstart", (e) => {
+    e.dataTransfer.setData("kind", "word");
+    e.dataTransfer.setData("word", word);
+  });
+}
+
+// word bank
 async function loadWordBank() {
   if (!wordBank) return;
 
   try {
     const response = await fetch("/assets/words.json");
+
     const data = await response.json();
 
     const words = Array.isArray(data[world]) ? data[world] : [];
+
     if (!words.length) {
       wordBank.innerHTML = "<span class='upload-status'>No words found.</span>";
+
       return;
     }
 
     renderRandomWords(words, 12);
   } catch (err) {
     console.error("Could not load words.json", err);
-    wordBank.innerHTML = "<span class='upload-status'>Word bank failed to load.</span>";
+
+    wordBank.innerHTML =
+      "<span class='upload-status'>Word bank failed to load.</span>";
   }
 }
 
@@ -264,50 +455,52 @@ function renderRandomWords(words, count = 12) {
     const word = words[Math.floor(Math.random() * words.length)];
 
     const chip = document.createElement("button");
+
     chip.type = "button";
     chip.className = "word-chip";
     chip.textContent = word;
 
-    chip.addEventListener("click", () => {
-      addWordMagnet(
-        word,
-        220 + Math.random() * 220,
-        160 + Math.random() * 180,
-      );
-    });
+    wireWordChip(chip, word);
 
     wordBank.appendChild(chip);
   }
 }
 
+// refresh words
 if (refreshWordsBtn) {
   refreshWordsBtn.addEventListener("click", async () => {
     await loadWordBank();
   });
 }
 
-// upload button
+// image upload
 if (uploadBtn && assetUpload) {
   uploadBtn.addEventListener("click", () => {
     assetUpload.click();
   });
 }
 
-// handle upload
 if (assetUpload) {
   assetUpload.addEventListener("change", async () => {
     const file = assetUpload.files?.[0];
+
     if (!file) return;
 
     if (!file.type.startsWith("image/")) {
-      if (uploadStatus) uploadStatus.textContent = "Please choose an image.";
+      if (uploadStatus) {
+        uploadStatus.textContent = "Please choose an image.";
+      }
+
       return;
     }
 
     const formData = new FormData();
+
     formData.append("image", file);
 
-    if (uploadStatus) uploadStatus.textContent = "Uploading...";
+    if (uploadStatus) {
+      uploadStatus.textContent = "Uploading...";
+    }
 
     try {
       const response = await fetch(`/api/assets/${world}/upload`, {
@@ -323,24 +516,33 @@ if (assetUpload) {
 
       if (assetScroll && data.url) {
         const img = document.createElement("img");
+
         img.src = data.url;
         img.className = "thumb";
         img.dataset.src = data.url;
         img.alt = "uploaded asset";
+
         wireThumb(img);
+
         assetScroll.prepend(img);
       }
 
-      if (uploadStatus) uploadStatus.textContent = "Added to archive.";
+      if (uploadStatus) {
+        uploadStatus.textContent = "Added to archive.";
+      }
+
       assetUpload.value = "";
     } catch (err) {
       console.error(err);
-      if (uploadStatus) uploadStatus.textContent = "Upload failed.";
+
+      if (uploadStatus) {
+        uploadStatus.textContent = "Upload failed.";
+      }
     }
   });
 }
 
-// drop on canvas
+// drag + drop
 const dropSurface = canvas.upperCanvasEl;
 
 dropSurface.addEventListener("dragover", function (e) {
@@ -350,12 +552,28 @@ dropSurface.addEventListener("dragover", function (e) {
 dropSurface.addEventListener("drop", function (e) {
   e.preventDefault();
 
-  const src = e.dataTransfer.getData("img");
-  if (!src) return;
+  const kind = e.dataTransfer.getData("kind");
 
   const rect = canvas.upperCanvasEl.getBoundingClientRect();
+
   const x = e.clientX - rect.left;
   const y = e.clientY - rect.top;
+
+  // dropped word
+  if (kind === "word") {
+    const word = e.dataTransfer.getData("word");
+
+    if (!word) return;
+
+    addWordMagnet(word, x, y);
+
+    return;
+  }
+
+  // dropped image
+  const src = e.dataTransfer.getData("img");
+
+  if (!src) return;
 
   addImage(src, x, y);
 });
@@ -367,25 +585,33 @@ document.addEventListener("keydown", (e) => {
 
     if (active) {
       canvas.remove(active);
+
       canvas.requestRenderAll();
     }
   }
 });
 
-// mouse position ui
+// mouse position
 canvas.on("mouse:move", function (opt) {
   const pointer = canvas.getPointer(opt.e);
 
   const mouseX = document.getElementById("mouseX");
   const mouseY = document.getElementById("mouseY");
 
-  if (mouseX) mouseX.textContent = Math.round(pointer.x);
-  if (mouseY) mouseY.textContent = Math.round(pointer.y);
+  if (mouseX) {
+    mouseX.textContent = Math.round(pointer.x);
+  }
+
+  if (mouseY) {
+    mouseY.textContent = Math.round(pointer.y);
+  }
 });
 
 // init
 window.addEventListener("load", async () => {
   resizeCanvas();
+
   await loadWordBank();
 });
+
 window.addEventListener("resize", resizeCanvas);
