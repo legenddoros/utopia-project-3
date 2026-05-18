@@ -321,12 +321,37 @@ canvas {
 .rabbit-zone {
   margin-top: auto;
   padding-top: 8px;
+  display: flex;
+  justify-content: center;
+  
 }
 
 .rabbit-link {
-  display: block;
+  /* display: block; */
+  display:flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   transition: transform 0.15s ease;
+  text-decoration: none;
+}
+
+.rabbit-label p{
+  font-size: 15px;
+  color: rgb(169, 12, 12);
+  text-decoration: none;
+  font-weight: 700;
+  padding:0;
+  margin-top:5px;
+}
+
+.portal-label p{
+  margin-top: 5px;
+  font-size: 15px;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  font-weight: 700;
 }
 
 .rabbit-link:hover {
@@ -505,7 +530,7 @@ canvas {
   height: 5000px;
 
   background-image:
-    url("/assets/helllandscape2.png"), url("/assets/checkerboard2.png");
+    url("/assets/helllandscape2.png"), url("/assets/checkerboarddark.png");
   background-size: cover, cover;
   background-position: center, center;
   background-repeat: no-repeat, no-repeat;
@@ -551,6 +576,7 @@ canvas {
   display: block;
   width: 100%;
   transition: transform 0.15s ease;
+  text-decoration: none;
 }
 
 .hell-page .portal-link:hover {
