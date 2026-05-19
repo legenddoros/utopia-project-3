@@ -50,25 +50,18 @@
 
         <section class="portal-zone">
           <a href="/heaven" class="portal-link">
-            <img src="/assets/heaven-button.jpg" alt="Return to Heaven" class="portal-img"  />
-        <span class = "portal-label">
-<p>RISE TO HEAVEN</p>
-           </span>
+            <img src="/assets/heaven-button.jpg" alt="Return to Heaven" class="portal-img" />
+            <span class="portal-label">
+              <p>RISE TO HEAVEN</p>
+            </span>
           </a>
         </section>
       </aside>
 
       <!-- Center Canvas -->
       <section class="canvas-wrap">
-        <div
-          class="canvas-stage"
-          data-world="hell"
-        >
-          <canvas
-            id="mainCanvas"
-            width="1600"
-            height="900"
-          ></canvas>
+        <div class="canvas-stage" data-world="hell">
+          <canvas id="mainCanvas" width="1600" height="900"></canvas>
         </div>
       </section>
 
@@ -86,6 +79,11 @@
             <button type="button" id="drawBtn" class="upload-btn">
               Draw Mode: Off
             </button>
+
+            <button type="button" id="eraseBtn" class="upload-btn">
+              Erase Selected
+            </button>
+
 
             <div class="brush-inputs">
               <input type="color" id="brushColor" value="#ff2a2a" />

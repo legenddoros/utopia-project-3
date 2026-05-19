@@ -23,8 +23,11 @@
           <div class="brand-subtitle">BUILD THE WORLD WE WANT</div>
         </div>
       </div>
-
-      <div class="topbar-right"></div>
+      <div class="topbar-right">
+        <button id="audioToggle" class="audio-btn heaven-audio-btn">
+          Disable Sound
+        </button>
+      </div>
     </header>
 
     <!-- Main Area -->
@@ -52,29 +55,22 @@
         </section>
 
         <section class="rabbit-zone">
-          
+
           <a href="/hell" class="rabbit-link">
             <img src="/assets/hell-button.png" alt="Rabbit Hole" class="rabbit-hole-img" />
-           <span class = "rabbit-label">
-<p>ENTER THE UNDERWORLD</p>
-           </span>
+            <span class="rabbit-label">
+              <p>ENTER THE UNDERWORLD</p>
+            </span>
           </a>
-           
+
         </section>
-       
+
       </aside>
 
       <!-- Center Canvas -->
       <section class="canvas-wrap">
-        <div
-          class="canvas-stage"
-          data-world="heaven"
-        >
-          <canvas
-            id="mainCanvas"
-            width="1600"
-            height="900"
-          ></canvas>
+        <div class="canvas-stage" data-world="heaven">
+          <canvas id="mainCanvas" width="1600" height="900"></canvas>
         </div>
       </section>
 
@@ -104,7 +100,7 @@
 
             <div class="secret-button">
               <button type="button" id="whisperBtn" class="whisper-btn">
-                remember eden
+                Remember Eden
               </button>
             </div>
 
@@ -169,17 +165,12 @@
       </p>
     </div>
   </div>
-<!-- Heaven Audio -->
-  <!-- Heaven Audio -->
-<audio id="pageAudio" autoplay loop>
-  <source src="/assets/audio/heaven.mp3" type="audio/mpeg">
-</audio>
+=  <!-- Heaven Audio -->
+  <audio id="pageAudio" autoplay loop>
+    <source src="/assets/audio/heaven.mp3" type="audio/mpeg">
+  </audio>
 
-<button id="audioToggle" class="audio-btn heaven-audio-btn">
-  Disable Sound
-</button>
-
-<script src="/js/audio.js"></script>
+  <script src="/js/audio.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/fabric@4.6.0/dist/fabric.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>

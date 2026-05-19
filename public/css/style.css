@@ -986,43 +986,29 @@ body[data-world="heaven"] .word-chip {
 }
 
 /** Heaven audio **/
-
 .audio-btn {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 9999;
-
-  padding: 14px 22px;
-
-  border-radius: 14px;
-
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 135px;
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 8px;
   cursor: pointer;
-
-  font-family: "Press Start 2P", monospace;
-  font-size: 10px;
-
-  transition: all 0.3s ease;
+  font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  transition: all 0.2s ease;
 }
 
 .heaven-audio-btn {
-
-  background: rgba(210, 235, 255, 0.45);
-
-  border: 2px solid white;
-
-  color: white;
-
-  box-shadow:
-    0 0 25px rgba(255, 255, 255, 0.9),
-    0 0 70px rgba(150, 210, 255, 0.7);
-
+  background: linear-gradient(180deg, #ffffff 0%, #eaf2ff 100%);
+  border: 2px solid #3657c8;
+  color: #1d3768;
+  box-shadow: 0 2px 8px rgba(90, 125, 215, 0.12);
 }
 
 .heaven-audio-btn:hover {
-
-  transform: scale(1.07);
-
-  background: rgba(255, 255, 255, 0.2);
-
+  background: linear-gradient(180deg, #ffffff 0%, #dceaff 100%);
+  transform: translateY(-1px);
 }
