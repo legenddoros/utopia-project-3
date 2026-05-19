@@ -227,8 +227,7 @@ body {
   border-radius: 6px;
 
   background:
-    radial-gradient(circle at 1px 1px, var(--grid) 1px, transparent 0) 0 0 /
-      10px 10px,
+    radial-gradient(circle at 1px 1px, var(--grid) 1px, transparent 0) 0 0 / 10px 10px,
     linear-gradient(180deg, #fafbfc 0%, var(--canvas-bg) 100%);
   overflow: hidden;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.65);
@@ -323,12 +322,12 @@ canvas {
   padding-top: 8px;
   display: flex;
   justify-content: center;
-  
+
 }
 
 .rabbit-link {
   /* display: block; */
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
@@ -336,16 +335,16 @@ canvas {
   text-decoration: none;
 }
 
-.rabbit-label p{
+.rabbit-label p {
   font-size: 15px;
   color: rgb(169, 12, 12);
   text-decoration: none;
   font-weight: 700;
-  padding:0;
-  margin-top:5px;
+  padding: 0;
+  margin-top: 5px;
 }
 
-.portal-label p{
+.portal-label p {
   margin-top: 5px;
   font-size: 15px;
   color: white;
@@ -984,4 +983,46 @@ body[data-world="heaven"] .word-chip {
 
 .hell-whisper {
   color: #ff6a6a;
+}
+
+/** Heaven audio **/
+
+.audio-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+
+  padding: 14px 22px;
+
+  border-radius: 14px;
+
+  cursor: pointer;
+
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+
+  transition: all 0.3s ease;
+}
+
+.heaven-audio-btn {
+
+  background: rgba(210, 235, 255, 0.45);
+
+  border: 2px solid white;
+
+  color: white;
+
+  box-shadow:
+    0 0 25px rgba(255, 255, 255, 0.9),
+    0 0 70px rgba(150, 210, 255, 0.7);
+
+}
+
+.heaven-audio-btn:hover {
+
+  transform: scale(1.07);
+
+  background: rgba(255, 255, 255, 0.2);
+
 }
