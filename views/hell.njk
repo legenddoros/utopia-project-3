@@ -21,7 +21,11 @@
         </div>
       </div>
 
-      <div class="topbar-right"></div>
+      <div class="topbar-right">
+        <button id="audioToggle" class="audio-btn hell-audio-btn">
+          Disable Sound
+        </button>
+      </div>
     </header>
 
     <!-- Main Area -->
@@ -128,6 +132,12 @@
       <div class="status">WELCOME TO HELL. EVERY PIXEL IS A WARNING.</div>
     </footer>
   </div>
+=  <!-- Hell Audio -->
+  <audio id="pageAudio" autoplay loop>
+    <source src="/assets/audio/hellscape.mp3" type="audio/mpeg">
+  </audio>
+
+  <script src="/js/audio.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/fabric@4.6.0/dist/fabric.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>

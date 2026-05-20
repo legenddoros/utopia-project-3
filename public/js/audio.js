@@ -5,59 +5,44 @@ let audioEnabled = true;
 
 // Try autoplay immediately
 window.addEventListener("load", async () => {
+  if (!pageAudio) return;
 
-    if (!pageAudio) return;
+  try {
+    pageAudio.volume = 0.35;
 
-    try {
+    await pageAudio.play();
 
-        pageAudio.volume = 0.35;
+    console.log("Heaven audio autoplaying");
+  } catch (error) {
+    console.log("Autoplay blocked:", error);
 
-        await pageAudio.play();
+    audioEnabled = false;
 
-        console.log("Heaven audio autoplaying");
-
-    } catch (error) {
-
-        console.log("Autoplay blocked:", error);
-
-        audioEnabled = false;
-
-        if (audioToggle) {
-            audioToggle.textContent = "Enable Sound";
-        }
+    if (audioToggle) {
+      audioToggle.textContent = "Enable Sound";
     }
-
+  }
 });
 
 // Toggle button
 if (audioToggle && pageAudio) {
+  audioToggle.addEventListener("click", async () => {
+    if (!audioEnabled) {
+      try {
+        await pageAudio.play();
 
-    audioToggle.addEventListener("click", async () => {
+        audioEnabled = true;
 
-        if (!audioEnabled) {
+        audioToggle.textContent = "Disable Sound";
+      } catch (error) {
+        console.log("Play failed:", error);
+      }
+    } else {
+      pageAudio.pause();
 
-            try {
+      audioEnabled = false;
 
-                await pageAudio.play();
-
-                audioEnabled = true;
-
-                audioToggle.textContent = "Disable Sound";
-
-            } catch (error) {
-
-                console.log("Play failed:", error);
-            }
-
-        } else {
-
-            pageAudio.pause();
-
-            audioEnabled = false;
-
-            audioToggle.textContent = "Enable Sound";
-        }
-
-    });
-
+      audioToggle.textContent = "Enable Sound";
+    }
+  });
 }
